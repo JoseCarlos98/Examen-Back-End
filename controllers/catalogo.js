@@ -28,6 +28,7 @@ const getCatalogs  = async (req, res = response) => {
                 },
             ]
         });
+        
         return res.status(201).json(catalogs); 
 
     } catch (error) {
@@ -65,7 +66,7 @@ const getCatalog = async (req, res = response) => {
 }
 
 const updateCatalog = async (req, res = response) => {
-    const id  = req.params.id;
+    const { id } = req.params;
     const { body } = req;
     
     try {
@@ -95,7 +96,7 @@ const updateCatalog = async (req, res = response) => {
 }
 
 const deleteCatalog = async(req, res = response) => {
-    const id  = req.params.id;
+    const { id } = req.params;
 
     try {
         const catalog = await Catalogo.findByPk( id );

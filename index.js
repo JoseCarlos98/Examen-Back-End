@@ -2,6 +2,7 @@ const express = require('express');
 const cors    = require('cors');
 const catalogosRouter = require('./routes/catalogo')
 const cuentasRouter = require('./routes/cuenta')
+const statusRouter = require('./routes/statu')
 const { db } = require('./db/connection');
 
 require('dotenv').config();
@@ -22,6 +23,7 @@ try {
 
 app.use('/catalogos', catalogosRouter);
 app.use('/cuentas',   cuentasRouter);
+app.use('/status',   statusRouter);
 
 app.listen(process.env.PORT, ()=>{
     console.log(`Servidor corriendo en puerto ${ process.env.PORT }`);

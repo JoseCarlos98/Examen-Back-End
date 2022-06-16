@@ -1,17 +1,17 @@
 const { response } = require('express');
-const { Catalogo } = require('../models/catalogo');
-const { Cuenta } = require('../models/Cuenta');
+const { Status } = require('../models/Status');
 
-
-const createAccount  = async ( req, res = response) => {
+const createStatu  = async ( req, res = response) => {
     const { body } = req;
 
     try {
-        const newAccount  = new Cuenta(body);
-        await newAccount .save();
+        const newStatus  = new Status(body);
+        
+        await newStatus .save();
+        
         return res.status(201).json({
             ok: true,
-            newAccount 
+            newStatus 
         }); 
 
     } catch (error) {
@@ -20,17 +20,10 @@ const createAccount  = async ( req, res = response) => {
     }
 }
 
-const getAccounts  = async (req, res = response) => {
+const getStatus  = async (req, res = response) => {
     try {
-        const accounts = await Cuenta.findAll({
-            include : [
-                {
-                    model: Catalogo,
-                },
-            ]
-        });
-
-        return res.status(201).json(accounts); 
+        const status = await Status.findAll({ });
+        return res.status(201).json(status); 
 
     } catch (error) {
         console.log(error);
@@ -38,26 +31,20 @@ const getAccounts  = async (req, res = response) => {
     }
 }
 
-const getAccount = async (req, res = response) => {
+const getStatu = async (req, res = response) => {
     const { id } = req.params;
 
     try {
-        const account = await Cuenta.findByPk(id,{
-            include : [
-                {
-                    model: Catalogo,
-                },
-            ]
-        })
+        const status = await Status.findByPk(id)
 
-        if (!account) {
+        if (!status) {
             return res.status (400).json({
-                  error: `Cuenta no existe!`
+                  error: `Status no existe!`
             })
         }
 
         return res.status(201).json({
-            account
+            status
         }); 
 
     } catch (error) {
@@ -66,25 +53,25 @@ const getAccount = async (req, res = response) => {
     }
 }
 
-const updateAccount = async (req, res = response) => {
+const updateStatu = async (req, res = response) => {
     const { id } = req.params;
     const { body } = req;
 
     try {
-        const account = await Cuenta.findByPk( id );
+        const status = await Status.findByPk( id );
 
-        if ( !account ) {
+        if ( !status ) {
             return res.status(404).json({
                 ok: true,
-                msg: 'Cuenta no encontrado por id',
+                msg: 'Status no encontrado por id',
             });
         }
 
-        await account.update(body)
+        await status.update(body)
 
         res.json({
             ok: true,
-            account: account
+            status
         })
 
     } catch (error) {
@@ -96,23 +83,23 @@ const updateAccount = async (req, res = response) => {
     }
 }
 
-const deleteAccount = async(req, res = response) => {
+const deleteStatu = async(req, res = response) => {
     const { id } = req.params;
 
     try {
-        const account = await Cuenta.findByPk( id );
-        if ( !account ) {
+        const status = await Status.findByPk( id );
+        if ( !status ) {
             return res.status(404).json({
                 ok: true,
-                msg: 'Cuenta no encontrado por id',
+                msg: 'Status no encontrado por id',
             });
         }
 
-        await account.destroy();
+        await status.destroy();
 
         res.json({
             ok: true,
-            msg: 'Cuenta eliminado'
+            msg: 'Status eliminado'
         });
 
     } catch (error) {
@@ -125,9 +112,9 @@ const deleteAccount = async(req, res = response) => {
 }
 
 module.exports = { 
-    createAccount ,
-    getAccounts,
-    getAccount,
-    deleteAccount,
-    updateAccount
+    createStatu ,
+    getStatus,
+    getStatu,
+    deleteStatu,
+    updateStatu
 }
