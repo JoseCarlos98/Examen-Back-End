@@ -14,7 +14,7 @@ app.use(cors());
 
 // MYSQL 
 try {
-	db.authenticate()
+	db.authenticate();
     console.log('BASE DE DATOS CONECTADA');
 } catch (error) {
     throw new Error (error)

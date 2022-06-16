@@ -17,6 +17,15 @@ const Catalogo = db.define('c_banco',{
     orden: {
         type: DataTypes.NUMBER
     }
+}),
+
+Status = db.define('Statu',{
+    status: {
+        type: DataTypes.STRING
+    }
 });
+
+
+Catalogo.belongsTo(Status, {foreignKey: 'id_status'})
 
 exports.Catalogo = Catalogo;
